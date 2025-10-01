@@ -1,0 +1,19 @@
+﻿@model List<OrderSystem.Models.Order>
+@using System.Globalization
+
+@{
+    var total = Model.Sum(o => o.Amount);
+    var avg = Model.Any() ? Model.Average(o => o.Amount) : 0m;
+    var topCustomer = Model
+        .GroupBy(o => o.Customer.Name)
+        .OrderByDescending(g => g.Sum(o => o.Amount))
+        .Select(g => g.Key)
+        .FirstOrDefault() ?? "N/A";
+}
+
+<strong>Total amount:</strong> @total.ToString("C2", CultureInfo.GetCultureInfo("fr-FR"))
+<br />
+<strong>Average amount:</strong> @avg.ToString("C2", CultureInfo.GetCultureInfo("fr-FR"))
+<br />
+<strong>Top customer:</strong> @topCustomer
+

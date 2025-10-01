@@ -1,0 +1,35 @@
+﻿@model List<OrderSystem.Models.Order>
+@using System.Globalization
+
+<h2>Add new order</h2>
+<form id="addOrderForm" method="post" action="/Orders/Add">
+    <div>
+        <label for="customerId">Customer</label>
+        <select id="customerId" name="customerId">
+            @foreach (var customer in ViewBag.Customers as List<OrderSystem.Models.Customer>)
+            {
+                <option value="@customer.Id">@customer.Name</option>
+            }
+        </select>
+    </div>
+
+    <div>
+        <label for="statusId">Status</label>
+        <select id="statusId" name="statusId">
+            @foreach (var status in ViewBag.Statuses as List<OrderSystem.Models.Status>)
+            {
+                <option value="@status.Id">@status.Name</option>
+            }
+        </select>
+    </div>
+
+    <div>
+        <label for="amount">Amount</label>
+        <input type="number" id="amount" name="amount" step="0.01" />
+    </div>
+
+    <button type="submit">Add Order</button>
+</form>
+@section Scripts {
+    <script src="~/js/add-order.js"></script>
+}

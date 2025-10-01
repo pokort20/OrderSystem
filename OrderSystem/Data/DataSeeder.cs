@@ -36,7 +36,7 @@ namespace OrderSystem.Data
             var orders = Enumerable.Range(1, numberOfOrders)
                 .Select(i => new Order
                 {
-                    Amount = Math.Round(rnd.Next(1, int.MaxValue) + (decimal)rnd.NextDouble(), 2),
+                    Amount = Math.Round(rnd.Next(1, 20000) + (decimal)rnd.NextDouble(), 2),
                     Date = new DateTime(rnd.NextInt64(630822816000000000, DateTime.Now.Ticks)), // 1.1.2000 - now
                     CustomerId = customers[rnd.Next(customers.Length)].Id,
                     StatusId = statuses[rnd.Next(statuses.Length)].Id,

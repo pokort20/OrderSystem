@@ -1,0 +1,46 @@
+﻿@model List<OrderSystem.Models.Order>
+@using System.Globalization
+
+<h2>Orders</h2>
+
+<div id="ordersTotals">
+    @await Html.PartialAsync("OrdersTotals", Model)
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                <div>
+                    <label for="customerName">Customer</label>
+                    <input type="text" id="customerName" placeholder="Filter by customer name"
+                           value="@Context.Request.Query["customerName"]" />
+                </div>
+            </th>
+            <th>
+                <div>
+                    <label for="statusCode">Filter by status:</label>
+                    <select id="statusCode">
+                        @{
+                            string selectedStatus = ViewContext.HttpContext.Request.Query["statusCode"].FirstOrDefault() ?? "";
+                        }
+                        <option value="">All</option>
+                        <option value="P" selected="@(selectedStatus == "P" ? "selected" : null)">Processing</option>
+                        <option value="S" selected="@(selectedStatus == "S" ? "selected" : null)">Shipped</option>
+                        <option value="C" selected="@(selectedStatus == "C" ? "selected" : null)">Cancelled</option>
+                    </select>
+                </div>
+            </th>
+            <th>Date</th>
+            <th>Amount</th>
+        </tr>
+    </thead>
+
+    <tbody id="ordersTable">
+        @await Html.PartialAsync("OrdersTable", Model)
+    </tbody>
+</table>
+
+@section Scripts {
+    <script src="~/js/filter.js"></script>
+}

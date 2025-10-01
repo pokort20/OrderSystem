@@ -40,7 +40,7 @@ namespace OrderSystem
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Orders}/{action=Index}/{id?}");
 
             app.Run();
         }

@@ -1,0 +1,16 @@
+﻿@model List<OrderSystem.Models.Order>
+@using System.Globalization
+
+@foreach (var order in Model)
+{
+    var style = "";
+    if (order.Status.StatusCode == 'C') style = "color:red;";
+    else if (order.Amount > 10000) style = "font-weight:bold;";
+
+    <tr style="@style">
+        <td>@order.Customer.Name</td>
+        <td>@order.Status.Name</td>
+        <td>@order.Date.ToString("yyyy-MM-dd")</td>
+        <td>@order.Amount.ToString("C", new CultureInfo("fr-FR"))</td>
+    </tr>
+}
