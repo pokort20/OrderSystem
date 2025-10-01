@@ -1,3 +1,6 @@
+using OrderSystem.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace OrderSystem
 {
     public class Program
@@ -7,9 +10,18 @@ namespace OrderSystem
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddDbContext<MainDbContext>(options =>
+                options.UseSqlite("Data Source=orders.db"));
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<MainDbContext>();
+                db.Database.EnsureCreated();
+                DataSeeder.Seed(db, numberOfCustomers: 10, numberOfOrders: 50);
+            }
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

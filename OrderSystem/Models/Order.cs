@@ -7,7 +7,7 @@
         public Customer? Customer { get; set; }
         public int StatusId { get; set; }
         public Status? Status { get; set; }
-        public DateTime OrderDate { get; set; }
-        public decimal TotalAmount { get; set; }
+        public DateTime Date { get; set; }
+        public decimal Amount { get; set; }
     }
 }
